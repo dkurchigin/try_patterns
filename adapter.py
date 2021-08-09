@@ -57,10 +57,11 @@ class BsonObjectAdapter(JsonPrinter):
         return bson.dumps(super().convert_from_json())
 
 
-dict_ = {'username': 'usr88', 'password': 'qwerty123'}
-json_obj = json.dumps(dict_)
-print('1. source json object:', json_obj)
-print('2. old functionality JsonPrinter print this:', JsonPrinter(json_obj))
-print('3. new fuctionality BsonPrinter can\'t work with json: ', BsonPrinter(json_obj))
-print('4. via class adapter BsonAdapter:', BsonClassAdapter(json_obj))
-print('5. via object adapter BsonObjectAdapter:', BsonObjectAdapter(BsonPrinter(json_obj)))
+if __name__ == '__main__':
+    dict_ = {'username': 'usr88', 'password': 'qwerty123'}
+    json_obj = json.dumps(dict_)
+    print('1. source json object:', json_obj)
+    print('2. old functionality JsonPrinter print this:', JsonPrinter(json_obj))
+    print('3. new fuctionality BsonPrinter can\'t work with json: ', BsonPrinter(json_obj))
+    print('4. via class adapter BsonAdapter:', BsonClassAdapter(json_obj))
+    print('5. via object adapter BsonObjectAdapter:', BsonObjectAdapter(BsonPrinter(json_obj)))
