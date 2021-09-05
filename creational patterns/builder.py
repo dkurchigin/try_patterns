@@ -1,0 +1,123 @@
+""" EXAMPLE FOR BUILDER IN PYTHON """
+from abc import ABC, abstractmethod
+
+
+class Director:
+    """ IT'S DIRECTOR """
+    def __init__(self):
+        self._builder = None
+
+    def set_builder(self, builder_instance):
+        """ SET BUILDER """
+        self._builder = builder_instance
+
+    def get_simple_house(self):
+        """ BUILD SMALL HOUSE """
+        self._builder.set_windows(1)
+        self._builder.set_walls('wood')
+        self._builder.set_garden(6)
+        return self._builder.get_house()
+
+    def get_big_house(self):
+        """ BUILD BIG HOUSE """
+        self._builder.set_windows(3)
+        self._builder.set_walls('bricks')
+        self._builder.set_garden(10)
+        return self._builder.get_house()
+
+
+class TownHouse:
+    """ IT'S SOME TOWNHOUSE"""
+    def __init__(self):
+        self.parts = []
+
+    def add(self, part):
+        """ ADD PART FOR PRODUCT """
+        self.parts.append(part)
+
+    def show_parts(self):
+        """ PRINT PARTS """
+        for part in self.parts:
+            print(f'\t{part}')
+
+
+class Windows: # pylint: disable=too-few-public-methods
+    """ CLASS FOR WINDOWS """
+    def __init__(self, count):
+        self.count = count
+
+    def __str__(self):
+        return f'windows count = {self.count}'
+
+
+class Walls: # pylint: disable=too-few-public-methods
+    """ CLASS FOR WALLS """
+    def __init__(self, material):
+        self.material = material
+
+    def __str__(self):
+        return f'walls material is {self.material}'
+
+
+class Garden: # pylint: disable=too-few-public-methods
+    """ CLASS FOR GARDEN """
+    def __init__(self, square):
+        self.square = square
+
+    def __str__(self):
+        return f'garden square is {self.square}'
+
+
+class Builder(ABC):
+    """ ABSTRACT BUILDER """
+    @abstractmethod
+    def set_windows(self, count):
+        """ ABSTRACT METHOD FOR WINDOWS """
+        pass
+
+    @abstractmethod
+    def set_walls(self, material):
+        """ ABSTRACT METHOD FOR WALLS """
+        pass
+
+    @abstractmethod
+    def set_garden(self, square):
+        """ ABSTRACT METHOD FOR GARDEN """
+        pass
+
+
+class TownHouseBuilder(Builder):
+    """ CONCRETE BUILDER FOR TOWNHOUSE """
+    def __init__(self):
+        self._product = TownHouse()
+
+    def get_house(self):
+        """ RETURN FINAL PRODUCT """
+        product = self._product
+        self._product = TownHouse()
+        return product
+
+    def set_windows(self, count):
+        self._product.add(Windows(count))
+
+    def set_walls(self, material):
+        self._product.add(Walls(material))
+
+    def set_garden(self, square):
+        self._product.add(Garden(square))
+
+
+if __name__ == '__main__':
+    director = Director()
+
+    builder = TownHouseBuilder()
+    director.set_builder(builder)
+
+    small_house = director.get_simple_house()
+    big_house = director.get_big_house()
+
+    print('Small house parts:')
+    small_house.show_parts()
+
+    print('\nBig house parts:')
+    big_house.show_parts()
