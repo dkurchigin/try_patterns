@@ -1,13 +1,13 @@
-"""EXAMPLE FOR DECORATOR IN PYTHON"""
+""" EXAMPLE FOR DECORATOR IN PYTHON """
 from abc import ABC, abstractmethod
 
 
 class Operator(ABC):  # pylint: disable=too-few-public-methods
-    """ABSTRACT Operator"""
+    """ ABSTRACT Operator """
 
     @abstractmethod
     def operation(self):
-        """SOME MATH OPERATION METHOD"""
+        """ SOME MATH OPERATION METHOD """
         pass
 
 

@@ -1,21 +1,21 @@
-"""EXAMPLE FOR COMPOSITE IN PYTHON"""
+""" EXAMPLE FOR COMPOSITE IN PYTHON """
 from abc import ABC, abstractmethod
 
 
 class Element(ABC):
-    """ABSTRACT CLASS FOR SOME OBJECT AND COMPOSITE"""
+    """ ABSTRACT CLASS FOR SOME OBJECT AND COMPOSITE """
     def add(self, some_object):
-        """ABSTRACT METHOD FOR ADD ELEMENTS"""
+        """ ABSTRACT METHOD FOR ADD ELEMENTS """
         pass
 
     @abstractmethod
     def print_type(self, padding):
-        """ABSTRACT METHOD FOR PRINTING OBJECT INFO"""
+        """ ABSTRACT METHOD FOR PRINTING OBJECT INFO """
         pass
 
 
 class SomeObject(Element):
-    """CLASS FOR SOME OBJECT"""
+    """ CLASS FOR SOME OBJECT """
     def __init__(self, title):
         self.title = title
 
@@ -27,7 +27,7 @@ class SomeObject(Element):
 
 
 class Composite(Element):
-    """CLASS FOR COMPOSITE"""
+    """ CLASS FOR COMPOSITE """
     def __init__(self, title):
         self._children = []
         self.title = title
@@ -36,15 +36,15 @@ class Composite(Element):
         print(' ' * padding, self.__class__.__name__, self.title, 'contains:', self._children)
 
     def add(self, some_object):
-        """ADD ELEMENT TO COMPOSITE"""
+        """ ADD ELEMENT TO COMPOSITE """
         self._children.append(some_object)
 
     def print_content(self):
-        """PRINT CONTENT"""
+        """ PRINT CONTENT """
         self.print_recursive(self)
 
     def print_recursive(self, some_obj, padding=0):
-        """PRINT COMPOSITE STRUCTURE RECURSIVE"""
+        """ PRINT COMPOSITE STRUCTURE RECURSIVE """
         padding += 2
         if isinstance(some_obj, Composite):
             some_obj.print_type(padding)

@@ -3,24 +3,24 @@ from abc import ABC, abstractmethod
 
 
 class AbstractTransport(ABC):
-    """ABSTRACT CLASS"""
+    """ ABSTRACT CLASS """
     def __init__(self):
         self.speed = 0
         self.price = 0
 
     @abstractmethod
     def show_max_speed(self):
-        """SHOW MAX SPEED"""
+        """ SHOW MAX SPEED """
         pass
 
     @abstractmethod
     def show_price(self):
-        """SHOW PRICE"""
+        """ SHOW PRICE """
         pass
 
 
 class MotoTransport(AbstractTransport):
-    """CONCRETE MOTO CLASS"""
+    """ CONCRETE MOTO CLASS """
     def __init__(self):
         super().__init__()
         self.speed = 100
@@ -34,7 +34,7 @@ class MotoTransport(AbstractTransport):
 
 
 class AutoTransport(AbstractTransport):
-    """CONCRETE AUTO CLASS"""
+    """ CONCRETE AUTO CLASS """
     def __init__(self):
         super().__init__()
         self.speed = 80
@@ -48,7 +48,7 @@ class AutoTransport(AbstractTransport):
 
 
 def create_transport(transport_type):
-    """RETURN CREATED CLASS"""
+    """ RETURN CREATED CLASS """
     return transport_type()
 
 

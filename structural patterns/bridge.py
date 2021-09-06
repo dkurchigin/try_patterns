@@ -1,27 +1,27 @@
-"""EXAMPLE FOR BRIDGE IN PYTHON"""
+""" EXAMPLE FOR BRIDGE IN PYTHON """
 from abc import ABC, abstractmethod
 
 
 class TV(ABC):
-    """ABSTRACT TV"""
+    """ ABSTRACT TV """
     @abstractmethod
     def tv_on(self):
-        """TV ON METHOD"""
+        """ TV ON METHOD """
         pass
 
     @abstractmethod
     def tv_off(self):
-        """TV OFF METHOD"""
+        """ TV OFF METHOD """
         pass
 
     @abstractmethod
     def tune_channel(self, channel):
-        """CNAHGE TV CHANNEL"""
+        """ CNAHGE TV CHANNEL """
         pass
 
 
 class SonyTV(TV):
-    """EXTEND TV ABSTRACTION FOR SONY"""
+    """ EXTEND TV ABSTRACTION FOR SONY """
     def tv_on(self):
         print('Turn on SonyTV')
 
@@ -33,7 +33,7 @@ class SonyTV(TV):
 
 
 class LgTV(TV):
-    """EXTEND TV ABSTRACTION FOR LG"""
+    """ EXTEND TV ABSTRACTION FOR LG """
     def tv_on(self):
         print('Turn on LgTV')
 
@@ -45,32 +45,32 @@ class LgTV(TV):
 
 
 class RemoteControl(ABC):
-    """ABSTRACT RC"""
+    """ ABSTRACT RC """
     def __init__(self, some_tv: TV):
         self.some_tv = some_tv
 
     def rc_on(self):
-        """CLICK TV ON"""
+        """ CLICK TV ON """
         self.some_tv.tv_on()
 
     def rc_off(self):
-        """CLICK TV OFF"""
+        """ CLICK TV OFF """
         self.some_tv.tv_off()
 
 
 class ConcreteRemote(RemoteControl):
-    """CLASS FOR CONCRETE RC IMPLEMENTATION"""
+    """ CLASS FOR CONCRETE RC IMPLEMENTATION """
     def __init__(self, some_tv: TV):
         super().__init__(some_tv)
         self.channel = 10
 
     def prev_channel(self):
-        """CLICK PREVIOUS CHANNEL ON RC"""
+        """ CLICK PREVIOUS CHANNEL ON RC """
         self.channel -= 1
         self.some_tv.tune_channel(self.channel)
 
     def next_channel(self):
-        """CLICK NEXT CHANNEL ON RC"""
+        """ CLICK NEXT CHANNEL ON RC """
         self.channel += 1
         self.some_tv.tune_channel(self.channel)
 
