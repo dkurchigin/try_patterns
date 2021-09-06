@@ -41,7 +41,7 @@ class TownHouse:
             print(f'\t{part}')
 
 
-class Windows: # pylint: disable=too-few-public-methods
+class Windows:  # pylint: disable=too-few-public-methods
     """ CLASS FOR WINDOWS """
     def __init__(self, count):
         self.count = count
@@ -50,7 +50,7 @@ class Windows: # pylint: disable=too-few-public-methods
         return f'windows count = {self.count}'
 
 
-class Walls: # pylint: disable=too-few-public-methods
+class Walls:  # pylint: disable=too-few-public-methods
     """ CLASS FOR WALLS """
     def __init__(self, material):
         self.material = material
@@ -59,7 +59,7 @@ class Walls: # pylint: disable=too-few-public-methods
         return f'walls material is {self.material}'
 
 
-class Garden: # pylint: disable=too-few-public-methods
+class Garden:  # pylint: disable=too-few-public-methods
     """ CLASS FOR GARDEN """
     def __init__(self, square):
         self.square = square
