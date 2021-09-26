@@ -1,13 +1,14 @@
 """ EXAMPLE FOR FLYWEIGHT IN PYTHON """
+from typing import Dict, List
 
 
 class ToySoldier:  # pylint: disable=too-few-public-methods
     """ IT'S FLYWEIGHT CLASS """
-    def __init__(self, specialization):
+    def __init__(self, specialization: str):
         self.specialization = specialization
         self._set_params()
 
-    def _set_params(self):
+    def _set_params(self) -> None:
         if self.specialization == 'bazooka':
             self.damage = 100
         elif self.specialization == 'mg':
@@ -15,26 +16,26 @@ class ToySoldier:  # pylint: disable=too-few-public-methods
         else:
             self.damage = 30
 
-    def play_it(self, name):
+    def play_it(self, name) -> None:
         """ PLAY YOUR SOLDIER """
         print(f'{name} like {self.specialization} join to battle!')
 
 
 class ToySoldiersFactory:
     """ IT'S FACTORY """
-    _flyweights = {}
+    _flyweights: Dict[str, ToySoldier] = {}
 
-    def __init__(self, initial_flyweights):
+    def __init__(self, initial_flyweights: List[str]) -> None:
         for uniq_spec in initial_flyweights:
             self._flyweights[uniq_spec] = ToySoldier(uniq_spec)
 
-    def get_soldier(self, uniq_spec):
+    def get_soldier(self, uniq_spec: str) -> ToySoldier:
         """ GET EXIST FLYWEIGHT OR CREATE NEW """
         if not self._flyweights.get(uniq_spec):
             self._flyweights[uniq_spec] = ToySoldier(uniq_spec)
         return self._flyweights[uniq_spec]
 
-    def list_flyweights(self):
+    def list_flyweights(self) -> None:
         """ PRINT ALL FLYWEIGHTS """
         count = len(self._flyweights)
         print(f'TSFactory: I have {count} flyweights:')
@@ -42,7 +43,7 @@ class ToySoldiersFactory:
             print(f'\t{flyweight}')
 
 
-def add_soldier_to_play(factory_inst, spec, name):
+def add_soldier_to_play(factory_inst: ToySoldiersFactory, spec: str, name: str) -> None:
     """ JUST ADD TOY TO BATTLE """
     flyweight = factory_inst.get_soldier(spec)
     flyweight.play_it(name)

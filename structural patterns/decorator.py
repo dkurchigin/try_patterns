@@ -1,5 +1,6 @@
 """ EXAMPLE FOR DECORATOR IN PYTHON """
 from abc import ABC, abstractmethod
+from typing import Union
 
 
 class Operator(ABC):  # pylint: disable=too-few-public-methods
@@ -13,29 +14,29 @@ class Operator(ABC):  # pylint: disable=too-few-public-methods
 
 class InitialClass(Operator):  # pylint: disable=too-few-public-methods
     """ IT'S X """
-    def __init__(self, value=10):
+    def __init__(self, value: Union[int, float] = 10):
         self.value = value
 
-    def operation(self):
+    def operation(self) -> Union[int, float]:
         return self.value
 
 
 class DoublingClass(Operator):  # pylint: disable=too-few-public-methods
     """ X * 2 """
-    def __init__(self, some_obj):
+    def __init__(self, some_obj: Operator):
         self.some_obj = some_obj
 
-    def operation(self):
+    def operation(self) -> Union[int, float]:
         return self.some_obj.operation() * 2
 
 
 class AddingTwoClass(Operator):  # pylint: disable=too-few-public-methods
     """ X + 2 """
 
-    def __init__(self, some_obj):
+    def __init__(self, some_obj: Operator):
         self.some_obj = some_obj
 
-    def operation(self):
+    def operation(self) -> Union[int, float]:
         return self.some_obj.operation() + 2
 
 

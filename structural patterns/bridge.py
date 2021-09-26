@@ -15,32 +15,32 @@ class TV(ABC):
         pass
 
     @abstractmethod
-    def tune_channel(self, channel):
+    def tune_channel(self, channel: int):
         """ CNAHGE TV CHANNEL """
         pass
 
 
 class SonyTV(TV):
     """ EXTEND TV ABSTRACTION FOR SONY """
-    def tv_on(self):
+    def tv_on(self) -> None:
         print('Turn on SonyTV')
 
-    def tv_off(self):
+    def tv_off(self) -> None:
         print('Turn off SonyTV')
 
-    def tune_channel(self, channel):
+    def tune_channel(self, channel: int) -> None:
         print(f'Tune channel #{channel} on SonyTV')
 
 
 class LgTV(TV):
     """ EXTEND TV ABSTRACTION FOR LG """
-    def tv_on(self):
+    def tv_on(self) -> None:
         print('Turn on LgTV')
 
-    def tv_off(self):
+    def tv_off(self) -> None:
         print('Turn off LgTV')
 
-    def tune_channel(self, channel):
+    def tune_channel(self, channel: int) -> None:
         print(f'Tune channel #{channel} on LgTV')
 
 
@@ -49,11 +49,11 @@ class RemoteControl(ABC):
     def __init__(self, some_tv: TV):
         self.some_tv = some_tv
 
-    def rc_on(self):
+    def rc_on(self) -> None:
         """ CLICK TV ON """
         self.some_tv.tv_on()
 
-    def rc_off(self):
+    def rc_off(self) -> None:
         """ CLICK TV OFF """
         self.some_tv.tv_off()
 
@@ -62,14 +62,14 @@ class ConcreteRemote(RemoteControl):
     """ CLASS FOR CONCRETE RC IMPLEMENTATION """
     def __init__(self, some_tv: TV):
         super().__init__(some_tv)
-        self.channel = 10
+        self.channel: int = 10
 
-    def prev_channel(self):
+    def prev_channel(self) -> None:
         """ CLICK PREVIOUS CHANNEL ON RC """
         self.channel -= 1
         self.some_tv.tune_channel(self.channel)
 
-    def next_channel(self):
+    def next_channel(self) -> None:
         """ CLICK NEXT CHANNEL ON RC """
         self.channel += 1
         self.some_tv.tune_channel(self.channel)

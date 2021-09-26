@@ -1,5 +1,6 @@
 """ EXAMPLE FOR PROXY IN PYTHON """
 from abc import ABC, abstractmethod
+from typing import Union
 
 
 class AbstractBank(ABC):
@@ -20,11 +21,11 @@ class RealBank(AbstractBank):
     def __init__(self):
         self.so_much_money = 500
 
-    def get_money(self, query, user):
+    def get_money(self, query: Union[int, float], user: str) -> None:
         self.so_much_money -= query
         print(f'RealBank: {user} got {query}$')
 
-    def get_balance(self, user):
+    def get_balance(self, user: str) -> None:
         print(f'RealBank: balance {self.so_much_money}$')
 
 
@@ -37,14 +38,14 @@ class BankProxy(AbstractBank):
     def _check_privileges(user):
         return bool(user not in ('blocked_user', 'pupa', 'lupa'))
 
-    def get_money(self, query, user):
+    def get_money(self, query: Union[int, float], user: str) -> None:
         print(f'BankProxy: check money privileges for {user}...')
         if self._check_privileges(user):
             self.real_bank.get_money(query, user)
         else:
             print(f'BankProxy: you can\'t get money, {user}')
 
-    def get_balance(self, user):
+    def get_balance(self, user: str) -> None:
         print(f'BankProxy: check balance privileges for {user}...')
         if self._check_privileges(user):
             self.real_bank.get_balance(user)
