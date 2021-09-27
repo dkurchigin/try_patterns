@@ -1,5 +1,7 @@
 """ EXAMPLE FOR BUILDER IN PYTHON """
+from __future__ import annotations
 from abc import ABC, abstractmethod
+from typing import Union
 
 
 class Director:
@@ -7,18 +9,18 @@ class Director:
     def __init__(self):
         self._builder = None
 
-    def set_builder(self, builder_instance):
+    def set_builder(self, builder_instance: TownHouseBuilder) -> None:
         """ SET BUILDER """
         self._builder = builder_instance
 
-    def get_simple_house(self):
+    def get_simple_house(self) -> TownHouse:
         """ BUILD SMALL HOUSE """
         self._builder.set_windows(1)
         self._builder.set_walls('wood')
         self._builder.set_garden(6)
         return self._builder.get_house()
 
-    def get_big_house(self):
+    def get_big_house(self) -> TownHouse:
         """ BUILD BIG HOUSE """
         self._builder.set_windows(3)
         self._builder.set_walls('bricks')
@@ -31,11 +33,11 @@ class TownHouse:
     def __init__(self):
         self.parts = []
 
-    def add(self, part):
+    def add(self, part) -> None:
         """ ADD PART FOR PRODUCT """
         self.parts.append(part)
 
-    def show_parts(self):
+    def show_parts(self) -> None:
         """ PRINT PARTS """
         for part in self.parts:
             print(f'\t{part}')
@@ -43,7 +45,7 @@ class TownHouse:
 
 class Windows:  # pylint: disable=too-few-public-methods
     """ CLASS FOR WINDOWS """
-    def __init__(self, count):
+    def __init__(self, count: int):
         self.count = count
 
     def __str__(self):
@@ -52,7 +54,7 @@ class Windows:  # pylint: disable=too-few-public-methods
 
 class Walls:  # pylint: disable=too-few-public-methods
     """ CLASS FOR WALLS """
-    def __init__(self, material):
+    def __init__(self, material: str):
         self.material = material
 
     def __str__(self):
@@ -61,7 +63,7 @@ class Walls:  # pylint: disable=too-few-public-methods
 
 class Garden:  # pylint: disable=too-few-public-methods
     """ CLASS FOR GARDEN """
-    def __init__(self, square):
+    def __init__(self, square: Union[float, int]):
         self.square = square
 
     def __str__(self):
@@ -91,19 +93,19 @@ class TownHouseBuilder(Builder):
     def __init__(self):
         self._product = TownHouse()
 
-    def get_house(self):
+    def get_house(self) -> TownHouse:
         """ RETURN FINAL PRODUCT """
         product = self._product
         self._product = TownHouse()
         return product
 
-    def set_windows(self, count):
+    def set_windows(self, count: int) -> None:
         self._product.add(Windows(count))
 
-    def set_walls(self, material):
+    def set_walls(self, material: str) -> None:
         self._product.add(Walls(material))
 
-    def set_garden(self, square):
+    def set_garden(self, square: Union[float, int]) -> None:
         self._product.add(Garden(square))
 
 

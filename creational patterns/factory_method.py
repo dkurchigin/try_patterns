@@ -1,5 +1,6 @@
 """ EXAMPLE FOR FACTORY METHOD IN PYTHON """
 from abc import ABC, abstractmethod
+from typing import Union, Type
 
 
 class AbstractTransport(ABC):
@@ -26,10 +27,10 @@ class MotoTransport(AbstractTransport):
         self.speed = 100
         self.price = 2000
 
-    def show_max_speed(self):
+    def show_max_speed(self) -> None:
         print(f'Max speed for moto = {self.speed}')
 
-    def show_price(self):
+    def show_price(self) -> None:
         print(f'Price for moto = {self.price}')
 
 
@@ -40,14 +41,15 @@ class AutoTransport(AbstractTransport):
         self.speed = 80
         self.price = 4000
 
-    def show_max_speed(self):
+    def show_max_speed(self) -> None:
         print(f'Max speed for auto = {self.speed}')
 
-    def show_price(self):
+    def show_price(self) -> None:
         print(f'Price for auto = {self.price}')
 
 
-def create_transport(transport_type):
+def create_transport(transport_type: Union[Type[MotoTransport], Type[AutoTransport]]) \
+        -> Union[MotoTransport, AutoTransport]:
     """ RETURN CREATED CLASS """
     return transport_type()
 

@@ -14,7 +14,7 @@ class Cloneable(ABC):  # pylint: disable=too-few-public-methods
 
 class Info:  # pylint: disable=too-few-public-methods
     """ CREATE INFO """
-    def __init__(self, name):
+    def __init__(self, name: str):
         self.name = name
 
     def __str__(self):
@@ -32,14 +32,14 @@ class DNA:  # pylint: disable=too-few-public-methods
 
 class SimpleSheep(Cloneable):
     """ CLASS FOR CLONEABLE SHEEP """
-    def __init__(self, info, dna):
+    def __init__(self, info: Info, dna: DNA):
         self.info = info
         self.dna = dna
 
-    def clone(self, new_name):
+    def clone(self, new_name: str):
         return SimpleSheep(Info(new_name), deepcopy(self.dna))
 
-    def print_info(self):
+    def print_info(self) -> None:
         """ JUST PRINT INFO """
         print(f'{self.info}\n{self.dna}')
         print('-' * 10)

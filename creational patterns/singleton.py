@@ -1,10 +1,12 @@
 """ EXAMPLE FOR SINGLETON IN PYTHON """
+from __future__ import annotations
 from threading import Lock, Thread
+from typing import Dict
 
 
 class SingletonMeta(type):
     """ SINGLETON METACLASS """
-    _instances = {}
+    _instances: Dict[SingletonMeta, type] = {}
     _lock: Lock = Lock()
 
     def __call__(cls, *args, **kwargs):
@@ -17,10 +19,10 @@ class SingletonMeta(type):
 
 class Singleton(metaclass=SingletonMeta):  # pylint: disable=too-few-public-methods
     """ OUR SINGLETON """
-    def __init__(self, name):
+    def __init__(self, name: str):
         self.name = name
 
-    def work_with_db(self):
+    def work_with_db(self) -> None:
         """ DO SOMETHING IN SINGLETON """
         print(f'\t{self.name}: It\'s so LONELY db connection')
 
