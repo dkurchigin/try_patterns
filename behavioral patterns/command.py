@@ -1,5 +1,6 @@
 """ EXAMPLE FOR COMMAND IN PYTHON """
 from abc import ABC, abstractmethod
+from typing import Union, List
 
 
 class RobotSteward:
@@ -30,52 +31,52 @@ class Command(ABC):
 
 class CookCommand(Command):
     """ COOKING COMMAND CLASS """
-    def __init__(self, steward):
+    def __init__(self, steward: RobotSteward):
         self.steward = steward
 
-    def do_it(self):
+    def do_it(self) -> None:
         self.steward.do_something('COOKING')
 
-    def cancel_it(self):
+    def cancel_it(self) -> None:
         self.steward.cancel_something('COOKING')
 
 
 class CleanCommand(Command):
     """ CLEANING COMMAND CLASS """
-    def __init__(self, steward):
+    def __init__(self, steward: RobotSteward):
         self.steward = steward
 
-    def do_it(self):
+    def do_it(self) -> None:
         self.steward.do_something('CLEANING')
 
-    def cancel_it(self):
+    def cancel_it(self) -> None:
         self.steward.cancel_something('CLEANING')
 
 
 class RobotInterface:
     """ CLASS FOR CONTROLING OUR ROBOT """
-    def __init__(self, cooking_command, cleaning_command):
+    def __init__(self, cooking_command: CookCommand, cleaning_command: CleanCommand):
         self.cooking_command = cooking_command
         self.cleaning_command = cleaning_command
-        self._command_list = []
+        self._command_list: List[Union[CookCommand, CleanCommand]] = []
 
-    def append_cook(self):
+    def append_cook(self) -> None:
         """ ADD COOKING """
         print('Add cooking in command queue...')
         self._command_list.append(self.cooking_command)
 
-    def append_clean(self):
+    def append_clean(self) -> None:
         """ ADD CLEANING """
         print('Add cleaning in command queue...')
         self._command_list.append(self.cleaning_command)
 
-    def cancel_last(self):
+    def cancel_last(self) -> None:
         """ CANCEL LAST COMMAND """
         command_for_cancel = self._command_list[-1]
         command_for_cancel.cancel_it()
         self._command_list.pop()
 
-    def run_all(self):
+    def run_all(self) -> None:
         """ RUN ALL COMMANDS ONE BY ONE """
         print('-' * 10)
         for command in self._command_list:

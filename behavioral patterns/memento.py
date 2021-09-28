@@ -3,6 +3,7 @@ from abc import ABC, abstractmethod
 from datetime import datetime
 import uuid
 import time
+from typing import List
 
 
 class Memento(ABC):
@@ -20,14 +21,14 @@ class Memento(ABC):
 
 class RandomTextFile(Memento):
     """ CONCRETE MEMENTO FOR FILE ENTRY """
-    def __init__(self, entry):
+    def __init__(self, entry: str):
         self._entry = entry
         self._date = datetime.now()
 
-    def get_date(self):
+    def get_date(self) -> datetime:
         return self._date
 
-    def get_entry(self):
+    def get_entry(self) -> str:
         return self._entry
 
 
@@ -36,38 +37,38 @@ class Originator:
     def __init__(self):
         self._entry = ''
 
-    def append_random_string(self):
+    def append_random_string(self) -> None:
         """ JUST APPEND STRING """
         self._entry += f'{self._generate_random_string()}\n'
 
     @staticmethod
-    def _generate_random_string():
+    def _generate_random_string() -> uuid.UUID:
         return uuid.uuid4()
 
-    def save(self):
+    def save(self) -> RandomTextFile:
         """ SAVE METHOD """
         return RandomTextFile(self._entry)
 
-    def restore(self, some_file):
+    def restore(self, some_file: RandomTextFile) -> None:
         """ RESTORE METHOD """
         self._entry = some_file.get_entry()
 
-    def print_file(self):
+    def print_file(self) -> None:
         """ BACKUP METHOD """
         print(f'\n{self._entry}\n')
 
 
 class Caretaker:
     """ CARETAKER CLASS """
-    def __init__(self, some_originator):
-        self._mementos = []
+    def __init__(self, some_originator: Originator):
+        self._mementos: List[RandomTextFile] = []
         self._originator = some_originator
 
-    def backup(self):
+    def backup(self) -> None:
         """ BACKUP METHOD """
         self._mementos.append(self._originator.save())
 
-    def undo(self):
+    def undo(self) -> None:
         """ ROLLBACK METHOD """
         if not self._mementos:
             return
@@ -80,7 +81,7 @@ class Caretaker:
         except Exception:
             self.undo()
 
-    def show_history(self):
+    def show_history(self) -> None:
         """ SHOW ALL BACKUPS """
         for memento in self._mementos:
             print(f'\t{memento.get_date()} entry length = {len(memento.get_entry())}')

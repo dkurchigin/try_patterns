@@ -1,5 +1,7 @@
 """ EXAMPLE FOR VISITOR IN PYTHON """
+from __future__ import annotations
 from abc import ABC, abstractmethod
+from typing import Union
 
 
 class Cafe(ABC):
@@ -25,22 +27,22 @@ class Cafe(ABC):
 
 class VeganCafe(Cafe):
     """ VEGAN CAFE CLASS """
-    def make_food_for_vegan(self, vegan):
+    def make_food_for_vegan(self, vegan: Vegan) -> None:
         print(f'\tSo much food for {vegan}, nice')
 
-    def make_food_for_meat_eater(self, meateater):
+    def make_food_for_meat_eater(self, meateater: MeatEater) -> None:
         print(f'\tDon\'t have any food for you, {meateater}')
 
 
 class MeatRestaurant(Cafe):
     """ MEAT RESTAURANT CLASS """
-    def make_food_for_vegan(self, vegan):
+    def make_food_for_vegan(self, vegan: Vegan) -> None:
         print(f'\tDon\'t have any food for you, {vegan}')
 
-    def make_food_for_meat_eater(self, meateater):
+    def make_food_for_meat_eater(self, meateater: MeatEater) -> None:
         print(f'\tSo much food for {meateater}, great')
 
-    def speak_with_auditor(self, auditor):
+    def speak_with_auditor(self, auditor: Auditor) -> None:
         print(f'\tMake diner from {auditor}, lol')
 
 
@@ -60,19 +62,19 @@ class Visitor(ABC):
 
 class MeatEater(Visitor):  # pylint: disable=too-few-public-methods
     """ MEAT EATER CLASS """
-    def visit(self, some_cafe):
+    def visit(self, some_cafe: MeatRestaurant) -> None:
         some_cafe.make_food_for_meat_eater(self)
 
 
 class Vegan(Visitor):  # pylint: disable=too-few-public-methods
     """ VEGAN CLASS """
-    def visit(self, some_cafe):
+    def visit(self, some_cafe: VeganCafe) -> None:
         some_cafe.make_food_for_vegan(self)
 
 
 class Auditor(Visitor):  # pylint: disable=too-few-public-methods
     """ AUDITOR CLASS """
-    def visit(self, some_cafe):
+    def visit(self, some_cafe: Union[VeganCafe, MeatRestaurant]) -> None:
         some_cafe.speak_with_auditor(self)
 
 

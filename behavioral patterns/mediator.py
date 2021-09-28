@@ -1,5 +1,7 @@
 """ EXAMPLE FOR MEDIATOR IN PYTHON """
+from __future__ import annotations
 from abc import ABC, abstractmethod
+from typing import Union
 
 
 class Mediator(ABC):  # pylint: disable=too-few-public-methods
@@ -27,46 +29,46 @@ class Worker(ABC):
 
 class Commander(Worker):
     """ CLASS FOR COMMANDER """
-    def set_mediator(self, mediator):
+    def set_mediator(self, mediator: GunTeam) -> None:
         self._mediator = mediator
 
-    def start_reload(self):
+    def start_reload(self) -> None:
         """ START RELOADING """
         self.do_task('reloading')
         self._mediator.execute(self, 'reloading')
 
-    def keep_fire(self):
+    def keep_fire(self) -> None:
         """ START FIRING """
         self.do_task('fire')
         self._mediator.execute(self, 'fire')
 
-    def do_task(self, task_type):
+    def do_task(self, task_type: str) -> None:
         print(f'Commander: {task_type}')
 
 
 class Loader(Worker):
     """ CLASS FOR LOADER """
-    def set_mediator(self, mediator):
+    def set_mediator(self, mediator: GunTeam) -> None:
         self._mediator = mediator
 
-    def do_task(self, task_type):
+    def do_task(self, task_type: str) -> None:
         print(f'Loader: {task_type}')
         self._mediator.execute(self, 'reloading')
 
 
 class Gunner(Worker):
     """ CLASS FOR GUNNER """
-    def set_mediator(self, mediator):
+    def set_mediator(self, mediator: GunTeam) -> None:
         self._mediator = mediator
 
-    def do_task(self, task_type):
+    def do_task(self, task_type: str) -> None:
         print(f'Gunner: {task_type}')
         self._mediator.execute(self, 'fire')
 
 
 class GunTeam(Mediator):  # pylint: disable=too-few-public-methods
     """ MAIN MEDIATOR FOR GUNTEAM """
-    def __init__(self, commander, loader, gunner):
+    def __init__(self, commander: Commander, loader: Loader, gunner: Gunner):
         self._commander = commander
         self._commander.set_mediator(self)
         self._loader = loader
@@ -75,7 +77,7 @@ class GunTeam(Mediator):  # pylint: disable=too-few-public-methods
         self._gunner.set_mediator(self)
         self._is_loaded = False
 
-    def execute(self, sender, event):
+    def execute(self, sender: Union[Gunner, Loader, Commander], event: str) -> None:
         if event == 'reloading':
             if isinstance(sender, Commander):
                 self._loader.do_task(event)

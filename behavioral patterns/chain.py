@@ -1,5 +1,7 @@
 """ EXAMPLE FOR CHAIN OF RESPONSIBILITY IN PYTHON """
+from __future__ import annotations
 from abc import ABC, abstractmethod
+from typing import Union
 
 
 class Handler(ABC):
@@ -31,7 +33,7 @@ class AbstractHandler(Handler):
 
 class UndershirtHandler(AbstractHandler):
     """ CLASS FOR UNDERSHIRT """
-    def handle(self, request):
+    def handle(self, request: str) -> Union[UndershirtHandler, ShirtHandler, JacketHandler, str]:
         if request == 'Undershirt':
             return f'Done! I undressed {request}!'
         return super().handle(request)
@@ -39,7 +41,7 @@ class UndershirtHandler(AbstractHandler):
 
 class ShirtHandler(AbstractHandler):
     """ CLASS FOR SHIRT """
-    def handle(self, request):
+    def handle(self, request: str) -> Union[UndershirtHandler, ShirtHandler, JacketHandler, str]:
         if request == 'Shirt':
             return f'Nice! I undressed {request}!'
         return super().handle(request)
@@ -47,13 +49,14 @@ class ShirtHandler(AbstractHandler):
 
 class JacketHandler(AbstractHandler):
     """ CLASS FOR JACKET """
-    def handle(self, request):
+    def handle(self, request: str) -> Union[UndershirtHandler, ShirtHandler, JacketHandler, str]:
         if request == 'Jacket':
             return f'Cool! I undressed {request}!'
         return super().handle(request)
 
 
-def strip_down_to(handler, request):
+def strip_down_to(handler: Union[UndershirtHandler, ShirtHandler, JacketHandler],
+                  request: str) -> None:
     """ STRIPTEASE! """
     result = handler.handle(request)
     if result:

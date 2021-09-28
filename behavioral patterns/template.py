@@ -52,34 +52,34 @@ class Sandwich(ABC):
 
 class FishSandwich(Sandwich):
     """ MEAT SANDWICH REALIZATION """
-    def append_bottom_bread(self):
+    def append_bottom_bread(self) -> None:
         print('- start with some bread')
 
-    def append_fish(self):
+    def append_fish(self) -> None:
         print('- append nice fish')
 
-    def append_sauce(self):
+    def append_sauce(self) -> None:
         print('- append tar-tar')
 
-    def append_top_bread(self):
+    def append_top_bread(self) -> None:
         print('- finish with some bread too')
 
 
 class MeatSandwich(Sandwich):
     """ MEAT SANDWICH REALIZATION """
-    def append_bottom_bread(self):
+    def append_bottom_bread(self) -> None:
         print('- start with bread for meat sandwich')
 
-    def append_cheese(self):
+    def append_cheese(self) -> None:
         print('- wow, i like cheese')
 
-    def append_some_meat(self):
+    def append_some_meat(self) -> None:
         print('- append meat, nice')
 
-    def append_sauce(self):
+    def append_sauce(self) -> None:
         print('- append barbecue sauce')
 
-    def append_top_bread(self):
+    def append_top_bread(self) -> None:
         print('- finish with bread for meat sandwich')
 
 
